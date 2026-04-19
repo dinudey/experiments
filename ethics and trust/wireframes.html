@@ -1,0 +1,1432 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Ethics & Trust Analyzer — Wireframes</title>
+<meta name="viewport" content="width=1280" />
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1a1a1a;
+    --ink-2:#3a3a3a;
+    --mute:#7a7a7a;
+    --line:#c9c9c9;
+    --line-2:#e2e2e2;
+    --fill:#f3f2ef;
+    --fill-2:#ebeae6;
+    --paper:#faf8f3;
+    --accent:#b8761a;        /* muted amber */
+    --accent-soft:#f3e2c2;
+    --scope-you:#2f6a3f;     /* muted moss */
+    --scope-you-soft:#dbe8dd;
+    --scope-collab:#6a5a2f;  /* muted ochre */
+    --scope-collab-soft:#e8e1cc;
+    --scope-out:#6a3030;     /* muted clay */
+    --scope-out-soft:#e8d6d4;
+    --sans:'Inter',system-ui,sans-serif;
+    --hand:'Caveat',cursive;
+    --mono:'IBM Plex Mono',monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);}
+  body{padding:0 0 80px 0}
+
+  /* ============ TOP BAR ============ */
+  .topbar{
+    position:sticky;top:0;z-index:30;
+    background:var(--paper);
+    border-bottom:1px solid var(--line);
+    padding:14px 28px 0 28px;
+  }
+  .topbar-row{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap}
+  .brand{display:flex;flex-direction:column;gap:2px}
+  .brand h1{
+    font-family:var(--hand);
+    font-weight:700;
+    font-size:30px;
+    margin:0;letter-spacing:.5px;
+    white-space:nowrap;
+  }
+  .brand .sub{
+    font-family:var(--mono);
+    font-size:11px;
+    color:var(--mute);
+    text-transform:uppercase;letter-spacing:.12em;
+  }
+  .topbar-meta{
+    font-family:var(--mono);font-size:11px;color:var(--mute);
+    text-align:right;line-height:1.5;
+  }
+  .tabs{
+    display:flex;gap:0;margin-top:16px;
+  }
+  .tab{
+    font-family:var(--sans);
+    font-size:13px;font-weight:500;
+    padding:10px 18px 10px 18px;
+    border:1px solid var(--line);
+    border-bottom:none;
+    background:var(--fill);
+    color:var(--ink-2);
+    cursor:pointer;
+    border-top-left-radius:6px;border-top-right-radius:6px;
+    margin-right:-1px;
+    display:flex;align-items:center;gap:8px;
+    transform:rotate(-.15deg);
+  }
+  .tab:nth-child(2){transform:rotate(.1deg)}
+  .tab:nth-child(3){transform:rotate(-.08deg)}
+  .tab:nth-child(4){transform:rotate(.12deg)}
+  .tab .num{font-family:var(--mono);font-size:10px;color:var(--mute)}
+  .tab.active{
+    background:var(--paper);
+    color:var(--ink);
+    border-color:var(--ink);
+    border-bottom:1px solid var(--paper);
+    position:relative;top:1px;
+    font-weight:600;
+  }
+  .tab.active .num{color:var(--accent)}
+
+  /* ============ SHARED WIREFRAME PRIMITIVES ============ */
+  .stage{
+    padding:36px 28px 0 28px;
+    max-width:1280px;margin:0 auto;
+  }
+  .direction-intro{
+    display:grid;grid-template-columns:auto 1fr auto;gap:24px;align-items:end;
+    padding:0 4px 20px 4px;
+    border-bottom:1px dashed var(--line);
+    margin-bottom:32px;
+  }
+  .direction-intro h2{
+    font-family:var(--hand);font-size:36px;margin:0;font-weight:700;
+  }
+  .direction-intro .tagline{
+    font-family:var(--mono);font-size:11px;color:var(--mute);
+    text-transform:uppercase;letter-spacing:.12em;margin-top:6px;
+  }
+  .direction-intro .desc{
+    font-size:13px;color:var(--ink-2);max-width:560px;line-height:1.55;
+    padding-bottom:4px;
+  }
+  .direction-intro .chips{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+  .chip{
+    font-family:var(--mono);font-size:10px;
+    padding:4px 8px;border:1px solid var(--line);border-radius:20px;
+    color:var(--mute);background:var(--fill);
+  }
+
+  .screen-label{
+    display:flex;align-items:baseline;gap:14px;
+    font-family:var(--mono);font-size:11px;color:var(--mute);
+    text-transform:uppercase;letter-spacing:.12em;
+    margin:40px 0 14px 0;
+  }
+  .screen-label .n{
+    font-family:var(--hand);font-size:26px;color:var(--ink);
+    text-transform:none;letter-spacing:0;line-height:1;
+  }
+  .screen-label .dash{flex:1;border-top:1px dashed var(--line);transform:translateY(-4px)}
+  .screen-label .hint{font-family:var(--hand);font-size:15px;color:var(--mute);text-transform:none;letter-spacing:0}
+
+  .frame{
+    border:1.5px solid var(--ink);
+    background:#fff;
+    border-radius:3px;
+    position:relative;
+    box-shadow:3px 3px 0 var(--line-2);
+  }
+  .frame.tall{min-height:640px}
+  .frame-chrome{
+    display:flex;align-items:center;gap:8px;
+    padding:8px 12px;
+    border-bottom:1px solid var(--line);
+    background:var(--fill);
+    font-family:var(--mono);font-size:10px;color:var(--mute);
+  }
+  .dot{width:8px;height:8px;border-radius:50%;border:1px solid var(--ink)}
+  .frame-chrome .url{
+    flex:1;background:#fff;border:1px solid var(--line);
+    padding:2px 10px;border-radius:10px;
+  }
+
+  /* Greyscale boxes */
+  .box{border:1px solid var(--ink);border-radius:2px;background:#fff}
+  .box.fill{background:var(--fill)}
+  .box.fill-2{background:var(--fill-2)}
+  .box.dash{border-style:dashed}
+  .label{font-family:var(--mono);font-size:10px;color:var(--mute);text-transform:uppercase;letter-spacing:.08em}
+  .hand{font-family:var(--hand);color:var(--ink)}
+
+  /* placeholder image */
+  .ph{
+    background:
+      repeating-linear-gradient(135deg, transparent 0 8px, rgba(0,0,0,.05) 8px 9px),
+      var(--fill);
+    border:1px solid var(--ink);
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--mono);font-size:10px;color:var(--mute);
+    text-align:center;padding:8px;
+  }
+  /* faux text lines */
+  .lines{display:flex;flex-direction:column;gap:5px}
+  .lines i{display:block;height:6px;background:var(--line-2);border-radius:3px}
+  .lines i:nth-child(odd){width:92%}
+  .lines i:nth-child(3n){width:74%}
+  .lines i:nth-child(5n){width:86%}
+
+  /* scoring primitives */
+  .bar-track{height:6px;background:var(--fill);border:1px solid var(--line);border-radius:4px;position:relative;overflow:hidden}
+  .bar-fill{height:100%;background:var(--ink)}
+  .bar-fill.warn{background:var(--accent)}
+  .bar-fill.good{background:var(--scope-you)}
+  .bar-fill.bad{background:var(--scope-out)}
+
+  /* scope-of-influence tags */
+  .scope-tag{
+    display:inline-flex;align-items:center;gap:6px;
+    font-family:var(--mono);font-size:10px;
+    padding:3px 8px;border-radius:12px;
+    border:1px solid var(--ink);
+  }
+  .scope-tag .sq{width:8px;height:8px;border-radius:2px}
+  .scope-you{background:var(--scope-you-soft)}
+  .scope-you .sq{background:var(--scope-you)}
+  .scope-collab{background:var(--scope-collab-soft)}
+  .scope-collab .sq{background:var(--scope-collab)}
+  .scope-out{background:var(--scope-out-soft)}
+  .scope-out .sq{background:var(--scope-out)}
+
+  /* severity */
+  .sev{font-family:var(--mono);font-size:10px;padding:2px 6px;border:1px solid var(--ink);border-radius:3px}
+  .sev.high{background:var(--scope-out-soft)}
+  .sev.med{background:var(--accent-soft)}
+  .sev.low{background:var(--fill)}
+
+  /* sticky note */
+  .sticky{
+    background:var(--accent-soft);
+    border:1px solid var(--ink);
+    padding:10px 12px;
+    font-family:var(--hand);font-size:18px;line-height:1.2;
+    box-shadow:2px 2px 0 rgba(0,0,0,.1);
+    transform:rotate(-.8deg);
+  }
+  .sticky .kicker{font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-2);display:block;margin-bottom:4px}
+
+  /* arrow */
+  .arrow{
+    position:absolute;font-family:var(--hand);font-size:16px;color:var(--ink);
+    pointer-events:none;
+  }
+  .arrow svg{display:block}
+
+  /* ============ TWEAKS PANEL ============ */
+  #tweaks{
+    position:fixed;right:18px;bottom:18px;
+    width:260px;background:#fff;border:1.5px solid var(--ink);
+    border-radius:4px;box-shadow:3px 3px 0 var(--line-2);
+    z-index:100;display:none;
+    font-family:var(--sans);
+  }
+  #tweaks.on{display:block}
+  #tweaks h3{margin:0;padding:10px 14px;border-bottom:1px solid var(--line);font-family:var(--hand);font-size:20px}
+  #tweaks .row{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 14px;font-size:12px;border-bottom:1px dashed var(--line-2)}
+  #tweaks .row:last-child{border-bottom:none}
+  #tweaks .row label{color:var(--ink-2)}
+  #tweaks select,#tweaks input[type=range]{font-family:var(--mono);font-size:11px}
+  .screens-hidden .frame{display:none}
+</style>
+</head>
+<body>
+
+<!-- ============ TOP BAR ============ -->
+<header class="topbar">
+  <div class="topbar-row">
+    <div class="brand">
+      <h1>Ethics &amp; Trust Analyzer</h1>
+      <span class="sub">wireframes · v0.1 · for UX designers on cross-functional teams</span>
+    </div>
+    <div class="topbar-meta">
+      3 screens × 4 directions<br/>
+      Clean low-fi · Socratic tone
+    </div>
+  </div>
+  <nav class="tabs" id="tabs">
+    <button class="tab active" data-tab="d1"><span class="num">01</span> Report Document</button>
+    <button class="tab" data-tab="d2"><span class="num">02</span> Dashboard Grid</button>
+    <button class="tab" data-tab="d3"><span class="num">03</span> Canvas Annotate</button>
+    <button class="tab" data-tab="d4"><span class="num">04</span> Split Inspector</button>
+  </nav>
+</header>
+
+<main class="stage" id="stage">
+  <!-- direction panels injected below -->
+</main>
+
+<!-- Tweaks panel -->
+<aside id="tweaks">
+  <h3>Tweaks</h3>
+  <div class="row">
+    <label for="tw-screens">Show screens</label>
+    <select id="tw-screens">
+      <option value="all">All 3</option>
+      <option value="overview">Overview only</option>
+      <option value="deepdive">Deep-dive only</option>
+      <option value="scope">Scope only</option>
+    </select>
+  </div>
+  <div class="row">
+    <label for="tw-paper">Paper tone</label>
+    <select id="tw-paper">
+      <option value="warm">Warm (default)</option>
+      <option value="cool">Cool grey</option>
+      <option value="plain">Plain white</option>
+    </select>
+  </div>
+  <div class="row">
+    <label for="tw-accent">Accent</label>
+    <select id="tw-accent">
+      <option value="amber">Amber</option>
+      <option value="teal">Teal</option>
+      <option value="plum">Plum</option>
+      <option value="none">None (pure B&amp;W)</option>
+    </select>
+  </div>
+  <div class="row">
+    <label for="tw-skew">Sketch wobble</label>
+    <input id="tw-skew" type="range" min="0" max="3" step="1" value="1" />
+  </div>
+</aside>
+
+<script>
+/* ============ DIRECTION BUILDERS ============ */
+
+const stage = document.getElementById('stage');
+
+/* shared helpers */
+function el(tag, attrs={}, ...kids){
+  const n = document.createElement(tag);
+  for(const k in attrs){
+    if(k==='class') n.className = attrs[k];
+    else if(k==='style') n.setAttribute('style', attrs[k]);
+    else if(k.startsWith('on')) n.addEventListener(k.slice(2), attrs[k]);
+    else n.setAttribute(k, attrs[k]);
+  }
+  for(const kid of kids){
+    if(kid==null) continue;
+    n.append(kid.nodeType ? kid : document.createTextNode(kid));
+  }
+  return n;
+}
+</script>
+<script>
+/* ============================================================
+   Ethics & Trust Analyzer — wireframe directions
+   4 directions × 3 screens (Overview, Deep-dive, Scope)
+   Clean low-fi greyscale with muted amber accent.
+   ============================================================ */
+
+/* ---------- SAMPLE DATA ---------- */
+const SAMPLE = {
+  artifact: "checkout_v3_figma.pdf",
+  uploaded: "2026-04-18 · 14 screens parsed",
+  overall: 62,
+  pillars: [
+    {key:"fair",   name:"Fairness",        score:71, findings:4, trend:"+3"},
+    {key:"acc",    name:"Accountability",  score:48, findings:6, trend:"-2"},
+    {key:"trans",  name:"Transparency",    score:55, findings:5, trend:"0"},
+    {key:"expl",   name:"Explainability",  score:42, findings:7, trend:"-5"},
+    {key:"trust",  name:"Trust calibration",score:66,findings:3, trend:"+1"},
+    {key:"priv",   name:"Privacy",         score:74, findings:2, trend:"+2"},
+    {key:"cons",   name:"Consent",         score:58, findings:4, trend:"0"},
+    {key:"bias",   name:"Bias & inclusivity",score:63,findings:3,trend:"+1"},
+    {key:"err",    name:"Error handling",  score:51, findings:5, trend:"-1"},
+    {key:"dark",   name:"Dark patterns",   score:80, findings:1, trend:"+4"},
+  ],
+  findings: [
+    {id:"F-03", sev:"high", pillar:"Explainability", screen:"Screen 07 — AI Suggestion",
+     title:"AI suggestion offered without reasoning",
+     scope:"you",
+     summary:"The recommended item appears with no indication of why it was chosen. Users cannot calibrate trust.",
+     ask:"What signal would help a user decide whether to accept this?",
+     fix:"Add a one-line rationale (‘based on your last 3 orders’) adjacent to the suggestion. Link to fuller ‘Why this?’ sheet."},
+    {id:"F-07", sev:"high", pillar:"Accountability", screen:"Screen 11 — Auto-approve",
+     title:"No path to contest an automated decision",
+     scope:"collab",
+     summary:"Declined users see a dead-end message. Requires policy + eng work to implement an appeal route.",
+     ask:"Who owns the appeal flow — legal, support, or product?",
+     fix:"Coordinate with Legal & Support to add a ‘Request human review’ action. You own the entry point + copy."},
+    {id:"F-11", sev:"med",  pillar:"Transparency", screen:"Screen 02 — Data prompt",
+     title:"Data usage disclosed only in footer",
+     scope:"you",
+     summary:"A 9-pt footer link is the only mention that inputs train the model.",
+     ask:"At what moment does the user most need this information?",
+     fix:"Inline disclosure at point of input. Draft copy; partner with Content on final wording."},
+    {id:"F-14", sev:"med",  pillar:"Consent", screen:"Screen 04 — Onboarding",
+     title:"Consent bundled with Terms acceptance",
+     scope:"out",
+     summary:"Legal framework decision — separating these is set at the platform level.",
+     ask:"Can you flag this upward even if you can’t change it?",
+     fix:"Document and escalate to Legal/Privacy. Out of direct design scope."},
+    {id:"F-18", sev:"low",  pillar:"Error handling", screen:"Screen 09 — Model timeout",
+     title:"Generic error on model timeout",
+     scope:"you",
+     summary:"‘Something went wrong’ message doesn’t tell the user whether to retry or wait.",
+     ask:"What do users need to do differently?",
+     fix:"Write a specific, actionable error state. Coordinate copy with Eng on the underlying states."},
+  ]
+};
+
+const SCOPE_LABEL = {
+  you:   {name:"Your scope",       tag:"YOU OWN THIS",      cls:"scope-you"},
+  collab:{name:"Collaborative",    tag:"WORK W/ OTHERS",    cls:"scope-collab"},
+  out:   {name:"Out of scope",     tag:"ESCALATE / FLAG",   cls:"scope-out"},
+};
+
+/* ---------- UTIL ---------- */
+function screenLabel(n, title, hint){
+  return `
+    <div class="screen-label" data-scroll="${title}">
+      <span class="n">${n}.</span>
+      <span>${title}</span>
+      <span class="dash"></span>
+      <span class="hint">${hint||""}</span>
+    </div>`;
+}
+
+function frameShell(title, inner, extraClass=""){
+  return `
+  <section class="frame tall ${extraClass}" data-screen-label="${title}">
+    <div class="frame-chrome">
+      <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+      <span class="url">ethics.trust/analyze/checkout_v3</span>
+      <span>${SAMPLE.artifact}</span>
+    </div>
+    <div class="frame-body">${inner}</div>
+  </section>`;
+}
+
+function scopeChip(scope){
+  const s = SCOPE_LABEL[scope];
+  return `<span class="scope-tag ${s.cls}"><span class="sq"></span>${s.tag}</span>`;
+}
+
+/* =====================================================================
+   DIRECTION 1 — REPORT DOCUMENT
+   Long-scroll annotated audit report. Printable, clinical but warm.
+===================================================================== */
+function buildD1(){
+  const over = `
+    <div style="padding:28px 40px 36px 40px;max-width:780px;margin:0 auto">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid var(--ink);padding-bottom:14px">
+        <div>
+          <div class="label">ETHICS &amp; TRUST ASSESSMENT · V3</div>
+          <div style="font-family:var(--hand);font-size:34px;line-height:1.1;margin-top:4px">Checkout flow, AI suggestions</div>
+        </div>
+        <div class="label" style="text-align:right;line-height:1.6">
+          ${SAMPLE.uploaded}<br/>
+          14 screens · 40 findings
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:180px 1fr;gap:28px;margin-top:26px">
+        <div>
+          <div class="label">OVERALL</div>
+          <div style="font-family:var(--hand);font-size:72px;line-height:1;margin-top:4px">${SAMPLE.overall}<span style="font-size:28px;color:var(--mute)">/100</span></div>
+          <div class="label" style="margin-top:4px">NEEDS ATTN.</div>
+          <div class="bar-track" style="margin-top:10px"><div class="bar-fill warn" style="width:${SAMPLE.overall}%"></div></div>
+        </div>
+        <div>
+          <div class="label">SOCRATIC SUMMARY</div>
+          <p style="font-family:var(--hand);font-size:22px;line-height:1.35;margin:6px 0 10px 0">
+            “Where in this flow would <u>you</u> most want to know how the AI made its choice?”
+          </p>
+          <div class="lines"><i></i><i></i><i></i><i></i><i></i></div>
+        </div>
+      </div>
+
+      <div class="label" style="margin-top:34px">TABLE OF CONTENTS</div>
+      <ol style="font-family:var(--mono);font-size:12px;columns:2;padding-left:22px;line-height:1.8;color:var(--ink-2)">
+        ${SAMPLE.pillars.map((p,i)=>`<li>${p.name.padEnd(22,' ')} <span style="color:var(--mute)">· ${p.findings} findings</span></li>`).join("")}
+      </ol>
+
+      <div class="label" style="margin-top:30px">PILLAR BREAKDOWN</div>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-top:10px">
+        ${SAMPLE.pillars.map(p=>`
+          <div style="display:grid;grid-template-columns:170px 1fr 46px 40px;gap:14px;align-items:center;padding:8px 0;border-bottom:1px dashed var(--line-2)">
+            <div style="font-size:13px">${p.name}</div>
+            <div class="bar-track"><div class="bar-fill ${p.score<50?'bad':p.score<65?'warn':'good'}" style="width:${p.score}%"></div></div>
+            <div class="label" style="text-align:right">${p.score}/100</div>
+            <div class="label" style="color:${p.trend.startsWith('-')?'var(--scope-out)':'var(--scope-you)'}">${p.trend}</div>
+          </div>`).join("")}
+      </div>
+
+      <div class="label" style="margin-top:30px">PRIORITY FINDINGS</div>
+      <div style="display:flex;flex-direction:column;gap:14px;margin-top:12px">
+        ${SAMPLE.findings.slice(0,3).map(f=>`
+          <div style="border:1px solid var(--ink);padding:14px 16px;display:grid;grid-template-columns:60px 1fr auto;gap:14px">
+            <div style="font-family:var(--hand);font-size:26px;line-height:1">${f.id}</div>
+            <div>
+              <div style="font-size:13px;font-weight:600">${f.title}</div>
+              <div class="label" style="margin-top:4px">${f.pillar} · ${f.screen}</div>
+              <p style="font-size:12px;color:var(--ink-2);margin:6px 0 0 0;line-height:1.5">${f.summary}</p>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">
+              <span class="sev ${f.sev}">${f.sev.toUpperCase()}</span>
+              ${scopeChip(f.scope)}
+            </div>
+          </div>`).join("")}
+      </div>
+    </div>`;
+
+  const deep = `
+    <div style="display:grid;grid-template-columns:260px 1fr;min-height:620px">
+      <aside style="border-right:1px solid var(--line);background:var(--fill);padding:18px 14px">
+        <div class="label">ALL FINDINGS · 40</div>
+        <div style="display:flex;flex-direction:column;gap:4px;margin-top:10px">
+          ${SAMPLE.findings.map((f,i)=>`
+            <div style="padding:8px 10px;border:1px solid ${i===0?'var(--ink)':'transparent'};background:${i===0?'#fff':'transparent'};border-radius:3px">
+              <div style="display:flex;justify-content:space-between;align-items:center">
+                <span class="label">${f.id}</span>
+                <span class="sev ${f.sev}">${f.sev[0].toUpperCase()}</span>
+              </div>
+              <div style="font-size:12px;margin-top:3px;line-height:1.3">${f.title}</div>
+            </div>`).join("")}
+        </div>
+      </aside>
+      <div style="padding:26px 32px;max-width:720px">
+        <div class="label">FINDING F-03 · HIGH SEVERITY</div>
+        <h2 style="font-family:var(--hand);font-size:34px;line-height:1.1;margin:4px 0 0 0">
+          AI suggestion offered without reasoning
+        </h2>
+        <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
+          <span class="sev high">HIGH</span>
+          <span class="chip">Explainability</span>
+          <span class="chip">Screen 07</span>
+          ${scopeChip("you")}
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:22px">
+          <div class="ph" style="height:220px">annotated screenshot · screen 07<br/>callout on suggestion card</div>
+          <div>
+            <div class="label">WHAT WE SEE</div>
+            <p style="font-size:13px;line-height:1.55;color:var(--ink-2);margin:6px 0 14px 0">
+              The recommended item appears with no indication of why it was chosen. Users cannot calibrate trust or correct the model’s assumption.
+            </p>
+            <div class="label">EVIDENCE</div>
+            <ul style="font-family:var(--mono);font-size:11px;color:var(--ink-2);line-height:1.7;padding-left:18px;margin:6px 0 0 0">
+              <li>Screen 07 — suggestion card, no rationale</li>
+              <li>Screen 08 — ‘Learn more’ links to marketing page</li>
+              <li>No surfacing of confidence or inputs</li>
+            </ul>
+          </div>
+        </div>
+
+        <div style="margin-top:24px;padding:16px 18px;border:1px dashed var(--ink);background:var(--accent-soft)">
+          <div class="label" style="color:var(--ink)">SOCRATIC PROMPT</div>
+          <p style="font-family:var(--hand);font-size:22px;line-height:1.3;margin:6px 0 0 0">
+            What signal would help a user decide whether to accept, adjust, or reject this suggestion?
+          </p>
+        </div>
+
+        <div style="margin-top:22px">
+          <div class="label">SUGGESTED FIX · IN YOUR SCOPE</div>
+          <p style="font-size:13px;line-height:1.55;margin:6px 0 10px 0">
+            Add a one-line rationale adjacent to the suggestion (“based on your last 3 orders”). Link to a fuller ‘Why this?’ sheet with confidence and inputs.
+          </p>
+          <div style="display:flex;gap:10px;margin-top:10px">
+            <button class="box fill" style="padding:8px 14px;font-size:12px;cursor:pointer;border-radius:3px">Mark addressed</button>
+            <button class="box" style="padding:8px 14px;font-size:12px;cursor:pointer;border-radius:3px">Assign to…</button>
+            <button class="box" style="padding:8px 14px;font-size:12px;cursor:pointer;border-radius:3px">Export note</button>
+          </div>
+        </div>
+      </div>
+    </div>`;
+
+  const scope = `
+    <div style="padding:28px 40px">
+      <div class="label">SCOPE OF INFLUENCE · APPENDIX</div>
+      <h2 style="font-family:var(--hand);font-size:34px;line-height:1.1;margin:4px 0 6px 0">Where can you actually move the needle?</h2>
+      <p style="font-size:13px;color:var(--ink-2);max-width:640px;line-height:1.55;margin:0 0 22px 0">
+        Every finding is tagged by where a UX designer typically has influence. Use this to focus your next week — and to know when to escalate instead.
+      </p>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px">
+        ${[
+          {k:"you",  title:"Yours to own",       copy:"Direct design changes: copy, layout, state, disclosure, microinteractions.", n:22},
+          {k:"collab",title:"Work with others",  copy:"Needs PM, Eng, Content, or Research alignment. You lead the ask.",          n:13},
+          {k:"out",  title:"Out of direct scope",copy:"Policy, legal, model, org-level. You can document & escalate.",             n:5},
+        ].map(c=>`
+          <div style="border:1px solid var(--ink);padding:18px;background:${c.k==='you'?'var(--scope-you-soft)':c.k==='collab'?'var(--scope-collab-soft)':'var(--scope-out-soft)'}">
+            <div style="display:flex;justify-content:space-between;align-items:baseline">
+              <div style="font-family:var(--hand);font-size:24px">${c.title}</div>
+              <div class="label">${c.n} findings</div>
+            </div>
+            <p style="font-size:12px;line-height:1.5;color:var(--ink-2);margin:8px 0 14px 0">${c.copy}</p>
+            <div style="display:flex;flex-direction:column;gap:6px">
+              ${SAMPLE.findings.filter(f=>f.scope===c.k).slice(0,3).map(f=>`
+                <div style="background:#fff;border:1px solid var(--line);padding:8px 10px;font-size:11px;display:flex;justify-content:space-between;gap:8px">
+                  <span>${f.title}</span>
+                  <span class="label">${f.id}</span>
+                </div>`).join("")}
+              ${SAMPLE.findings.filter(f=>f.scope===c.k).length===0 ? `<div class="label" style="font-style:italic">none in sample</div>`:''}
+            </div>
+          </div>`).join("")}
+      </div>
+
+      <div class="label" style="margin-top:28px">COLLABORATORS INFERRED FROM THIS ARTIFACT</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">
+        ${["Product (PM)","ML Engineering","Content Design","Legal/Privacy","Support Ops","Research"].map(x=>`<span class="chip">${x}</span>`).join("")}
+      </div>
+
+      <div style="margin-top:28px;display:grid;grid-template-columns:1fr 1fr;gap:18px">
+        <div style="border:1px dashed var(--ink);padding:16px">
+          <div class="label">YOUR NEXT WEEK</div>
+          <ol style="font-family:var(--mono);font-size:12px;color:var(--ink-2);line-height:1.8;padding-left:18px;margin:8px 0 0 0">
+            <li>Draft rationale copy for AI suggestion (F-03)</li>
+            <li>Inline data disclosure variant (F-11)</li>
+            <li>Specific timeout error states (F-18)</li>
+          </ol>
+        </div>
+        <div style="border:1px dashed var(--ink);padding:16px">
+          <div class="label">QUESTIONS TO BRING TO STANDUP</div>
+          <ol style="font-family:var(--hand);font-size:19px;line-height:1.55;padding-left:20px;margin:8px 0 0 0">
+            <li style="margin-bottom:6px">Who owns the appeal flow? (F-07)</li>
+            <li style="margin-bottom:6px">Can consent be unbundled from T&amp;Cs? (F-14)</li>
+            <li>What confidence signal does the model expose?</li>
+          </ol>
+        </div>
+      </div>
+    </div>`;
+
+  return `
+    <div class="direction-intro">
+      <div>
+        <h2>01 · Report Document</h2>
+        <div class="tagline">long-scroll audit · printable · clinical-warm</div>
+      </div>
+      <div class="desc">
+        Reads like a proper assessment report. Scores at top, pillar breakdown, then priority findings. Good for handoff gates and sharing with PM/Eng as a PDF.
+      </div>
+      <div class="chips">
+        <span class="chip">linear</span><span class="chip">printable</span><span class="chip">shareable</span>
+      </div>
+    </div>
+    ${screenLabel('A','Analysis results overview','top-down, scores first')}
+    ${frameShell('Overview', over)}
+    ${screenLabel('B','Deep-dive on a single finding','list + reading pane')}
+    ${frameShell('Deep-dive', deep)}
+    ${screenLabel('C','Scope of influence','appendix · 3 columns')}
+    ${frameShell('Scope', scope)}
+  `;
+}
+
+/* =====================================================================
+   DIRECTION 2 — DASHBOARD GRID
+   Card-based, scannable, summary-first.
+===================================================================== */
+function buildD2(){
+  const over = `
+    <div style="padding:22px 28px">
+      <div style="display:grid;grid-template-columns:1fr auto;gap:20px;align-items:end;margin-bottom:18px">
+        <div>
+          <div class="label">PROJECT</div>
+          <div style="font-family:var(--hand);font-size:30px;line-height:1">Checkout v3 · AI suggestions</div>
+        </div>
+        <div style="display:flex;gap:8px">
+          <button class="box fill" style="padding:6px 12px;font-size:11px;border-radius:3px">Re-run</button>
+          <button class="box" style="padding:6px 12px;font-size:11px;border-radius:3px">Export</button>
+          <button class="box" style="padding:6px 12px;font-size:11px;border-radius:3px">Share</button>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px">
+        <div class="box" style="padding:14px">
+          <div class="label">OVERALL</div>
+          <div style="font-family:var(--hand);font-size:44px;line-height:1">${SAMPLE.overall}<span style="font-size:16px;color:var(--mute)"> /100</span></div>
+          <div class="bar-track" style="margin-top:8px"><div class="bar-fill warn" style="width:${SAMPLE.overall}%"></div></div>
+        </div>
+        <div class="box" style="padding:14px">
+          <div class="label">FINDINGS</div>
+          <div style="font-family:var(--hand);font-size:44px;line-height:1">40</div>
+          <div style="font-family:var(--mono);font-size:10px;color:var(--mute);margin-top:4px">8 HIGH · 18 MED · 14 LOW</div>
+        </div>
+        <div class="box" style="padding:14px">
+          <div class="label">IN YOUR SCOPE</div>
+          <div style="font-family:var(--hand);font-size:44px;line-height:1">22 <span style="font-size:14px;color:var(--scope-you)">55%</span></div>
+          <div style="font-family:var(--mono);font-size:10px;color:var(--mute);margin-top:4px">you can move these this week</div>
+        </div>
+        <div class="box" style="padding:14px">
+          <div class="label">WEAKEST PILLAR</div>
+          <div style="font-family:var(--hand);font-size:24px;line-height:1.1;margin-top:4px">Explainability</div>
+          <div style="font-family:var(--mono);font-size:10px;color:var(--scope-out);margin-top:6px">42/100 · trend −5</div>
+        </div>
+      </div>
+
+      <div class="label" style="margin:8px 0 8px 0">PILLAR CARDS</div>
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px">
+        ${SAMPLE.pillars.map(p=>`
+          <div class="box" style="padding:12px;position:relative">
+            <div class="label" style="font-size:9px">${p.name.toUpperCase()}</div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-top:4px">
+              <div style="font-family:var(--hand);font-size:28px;line-height:1">${p.score}</div>
+              <div class="label" style="color:${p.trend.startsWith('-')?'var(--scope-out)':p.trend==='0'?'var(--mute)':'var(--scope-you)'}">${p.trend}</div>
+            </div>
+            <div class="bar-track" style="margin-top:6px"><div class="bar-fill ${p.score<50?'bad':p.score<65?'warn':'good'}" style="width:${p.score}%"></div></div>
+            <div style="font-family:var(--mono);font-size:10px;color:var(--mute);margin-top:6px">${p.findings} findings</div>
+          </div>`).join("")}
+      </div>
+
+      <div style="display:grid;grid-template-columns:2fr 1fr;gap:14px;margin-top:18px">
+        <div class="box" style="padding:14px">
+          <div style="display:flex;justify-content:space-between;align-items:baseline">
+            <div class="label">TOP PRIORITIES · PRIORITIZED LIST</div>
+            <div class="label">SORT BY SEVERITY ↓</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px;margin-top:10px">
+            ${SAMPLE.findings.map(f=>`
+              <div style="display:grid;grid-template-columns:54px 1fr auto auto;gap:10px;align-items:center;padding:8px 6px;border-bottom:1px dashed var(--line-2)">
+                <span class="label">${f.id}</span>
+                <div>
+                  <div style="font-size:12px;font-weight:500">${f.title}</div>
+                  <div class="label" style="margin-top:2px">${f.pillar} · ${f.screen}</div>
+                </div>
+                <span class="sev ${f.sev}">${f.sev.toUpperCase()}</span>
+                ${scopeChip(f.scope)}
+              </div>`).join("")}
+          </div>
+        </div>
+        <div class="box fill" style="padding:14px">
+          <div class="label">SOCRATIC PROMPT</div>
+          <p style="font-family:var(--hand);font-size:22px;line-height:1.3;margin:10px 0 0 0">
+            If a user lost trust after using this flow once, which screen would you suspect first?
+          </p>
+          <div style="margin-top:16px;border-top:1px dashed var(--line);padding-top:12px">
+            <div class="label">QUICK ACTIONS</div>
+            <div style="display:flex;flex-direction:column;gap:6px;margin-top:8px">
+              <button class="box" style="padding:8px 10px;font-size:11px;text-align:left;border-radius:3px">➜ Focus on Explainability (7)</button>
+              <button class="box" style="padding:8px 10px;font-size:11px;text-align:left;border-radius:3px">➜ Show only ‘your scope’ (22)</button>
+              <button class="box" style="padding:8px 10px;font-size:11px;text-align:left;border-radius:3px">➜ Draft standup notes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>`;
+
+  const deep = `
+    <div style="padding:22px 28px">
+      <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:10px">
+        <span class="label">‹ back to dashboard</span>
+        <span class="label">/</span>
+        <span class="label">F-03</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr auto;gap:20px;align-items:end">
+        <div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:6px">
+            <span class="sev high">HIGH</span>
+            <span class="chip">Explainability</span>
+            ${scopeChip("you")}
+          </div>
+          <h2 style="font-family:var(--hand);font-size:34px;line-height:1.1;margin:0">AI suggestion offered without reasoning</h2>
+          <div class="label" style="margin-top:4px">screen 07 · suggestion card</div>
+        </div>
+        <div style="display:flex;gap:6px">
+          <button class="box fill" style="padding:6px 12px;font-size:11px;border-radius:3px">Mark done</button>
+          <button class="box" style="padding:6px 12px;font-size:11px;border-radius:3px">Assign</button>
+          <button class="box" style="padding:6px 12px;font-size:11px;border-radius:3px">Comment</button>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1.2fr 1fr;gap:16px;margin-top:18px">
+        <div class="box" style="padding:14px">
+          <div class="label">ANNOTATED SCREEN 07</div>
+          <div style="position:relative;margin-top:10px">
+            <div class="ph" style="height:300px">screen 07 · AI suggestion card</div>
+            <div style="position:absolute;left:30%;top:40%;width:36px;height:36px;border:2px solid var(--accent);border-radius:50%;background:rgba(255,255,255,.6);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:12px">1</div>
+            <div style="position:absolute;left:30%;top:40%;width:36px;height:36px;pointer-events:none">
+              <svg width="120" height="60" style="position:absolute;left:36px;top:-10px" viewBox="0 0 120 60">
+                <path d="M0 30 Q 40 0, 90 20" stroke="#1a1a1a" fill="none" stroke-width="1.2"/>
+                <path d="M85 15 L 90 20 L 82 23" stroke="#1a1a1a" fill="none" stroke-width="1.2"/>
+              </svg>
+              <div class="hand" style="position:absolute;left:130px;top:-22px;width:180px;font-size:16px;line-height:1.2">no rationale shown to user</div>
+            </div>
+          </div>
+        </div>
+        <div class="box" style="padding:14px">
+          <div class="label">WHY IT MATTERS</div>
+          <p style="font-size:13px;line-height:1.55;margin:6px 0 14px 0">Users cannot calibrate trust if the reasoning is invisible. This weakens appropriate reliance and blocks correction.</p>
+
+          <div class="label">SOCRATIC PROMPT</div>
+          <p style="font-family:var(--hand);font-size:20px;line-height:1.3;margin:6px 0 14px 0">What signal would help a user decide whether to accept, adjust, or reject this?</p>
+
+          <div class="label">SUGGESTED FIX</div>
+          <p style="font-size:12px;line-height:1.55;margin:6px 0 0 0;color:var(--ink-2)">
+            One-line rationale adjacent to suggestion, e.g. “Based on your last 3 orders.” Link to fuller ‘Why this?’ sheet.
+          </p>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:16px">
+        <div class="box fill" style="padding:12px">
+          <div class="label">YOU CAN DO</div>
+          <ul style="font-size:12px;padding-left:18px;margin:8px 0 0 0;line-height:1.6">
+            <li>Draft rationale copy</li>
+            <li>Spec ‘Why this?’ sheet</li>
+            <li>Update handoff spec</li>
+          </ul>
+        </div>
+        <div class="box fill-2" style="padding:12px">
+          <div class="label">COLLABORATE WITH</div>
+          <ul style="font-size:12px;padding-left:18px;margin:8px 0 0 0;line-height:1.6">
+            <li>ML Eng — what inputs are safe to surface?</li>
+            <li>Content — final wording</li>
+          </ul>
+        </div>
+        <div class="box dash" style="padding:12px">
+          <div class="label">OUT OF YOUR SCOPE</div>
+          <ul style="font-size:12px;padding-left:18px;margin:8px 0 0 0;line-height:1.6;color:var(--ink-2)">
+            <li>Changing model confidence output</li>
+            <li>Policy on disclosure depth</li>
+          </ul>
+        </div>
+      </div>
+    </div>`;
+
+  const scope = `
+    <div style="padding:22px 28px">
+      <div class="label">SCOPE OF INFLUENCE · MATRIX VIEW</div>
+      <h2 style="font-family:var(--hand);font-size:34px;line-height:1.1;margin:4px 0 6px 0">Map of what you can change</h2>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:18px">
+        ${[
+          {k:"you",   title:"Your scope · 22",          copy:"Direct design moves.",           n:22},
+          {k:"collab",title:"Collaborative · 13",       copy:"Lead the ask; others execute with you.",n:13},
+          {k:"out",   title:"Out of direct scope · 5",  copy:"Document, flag, escalate.",      n:5},
+        ].map(c=>`
+          <div class="box" style="padding:14px;background:${c.k==='you'?'var(--scope-you-soft)':c.k==='collab'?'var(--scope-collab-soft)':'var(--scope-out-soft)'}">
+            <div style="display:flex;align-items:center;gap:8px">
+              <div style="font-family:var(--hand);font-size:22px">${c.title}</div>
+            </div>
+            <p style="font-size:12px;color:var(--ink-2);margin:6px 0 12px 0;line-height:1.5">${c.copy}</p>
+            <div style="display:flex;flex-direction:column;gap:6px">
+              ${SAMPLE.findings.filter(f=>f.scope===c.k).map(f=>`
+                <div style="background:#fff;border:1px solid var(--line);padding:6px 8px;font-size:11px;display:flex;justify-content:space-between">
+                  <span>${f.title}</span>
+                  <span class="label">${f.id}</span>
+                </div>`).join("")}
+            </div>
+          </div>`).join("")}
+      </div>
+
+      <div style="margin-top:24px">
+        <div class="label">IMPACT × INFLUENCE MATRIX</div>
+        <div style="position:relative;border:1px solid var(--ink);height:340px;margin-top:10px;background:
+          linear-gradient(to right, transparent 0 50%, rgba(0,0,0,.03) 50% 100%),
+          linear-gradient(to top, transparent 0 50%, rgba(0,0,0,.03) 50% 100%);
+        ">
+          <!-- axis labels -->
+          <div class="label" style="position:absolute;left:14px;top:10px">HIGH IMPACT ↑</div>
+          <div class="label" style="position:absolute;left:14px;bottom:10px">LOW IMPACT</div>
+          <div class="label" style="position:absolute;right:14px;bottom:10px">HIGH INFLUENCE →</div>
+          <div class="label" style="position:absolute;left:14px;bottom:30px">← LOW INFLUENCE</div>
+          <div class="label" style="position:absolute;top:10px;right:14px">DO NOW ★</div>
+          <!-- dots -->
+          ${SAMPLE.findings.map((f,i)=>{
+            const x = [78,22,62,18,55][i]; const y = [82,70,58,35,46][i];
+            const col = f.scope==='you'?'var(--scope-you)':f.scope==='collab'?'var(--scope-collab)':'var(--scope-out)';
+            return `<div style="position:absolute;left:${x}%;top:${100-y}%;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:2px">
+              <div style="width:14px;height:14px;border-radius:50%;background:${col};border:1px solid var(--ink)"></div>
+              <div class="label" style="font-size:9px;white-space:nowrap">${f.id}</div>
+            </div>`;
+          }).join("")}
+        </div>
+      </div>
+    </div>`;
+
+  return `
+    <div class="direction-intro">
+      <div>
+        <h2>02 · Dashboard Grid</h2>
+        <div class="tagline">card-based · scannable · KPI-first</div>
+      </div>
+      <div class="desc">
+        A familiar dashboard: key numbers up top, pillar cards, prioritized list, side nudges. Good for repeat users who want to track a project across weeks.
+      </div>
+      <div class="chips"><span class="chip">scannable</span><span class="chip">kpi-first</span><span class="chip">trackable</span></div>
+    </div>
+    ${screenLabel('A','Analysis results overview','numbers first, cards below')}
+    ${frameShell('Overview', over)}
+    ${screenLabel('B','Deep-dive on a single finding','focused panel with scope split')}
+    ${frameShell('Deep-dive', deep)}
+    ${screenLabel('C','Scope of influence','3 columns + impact/influence matrix')}
+    ${frameShell('Scope', scope)}
+  `;
+}
+
+/* =====================================================================
+   DIRECTION 3 — CANVAS ANNOTATE
+   All screens pinned to a board with issue markers — feels like FigJam.
+===================================================================== */
+function buildD3(){
+  function pin(n, x, y, sev){
+    return `<div style="position:absolute;left:${x}%;top:${y}%;width:24px;height:24px;border-radius:50%;background:${sev==='high'?'var(--scope-out-soft)':sev==='med'?'var(--accent-soft)':'var(--fill)'};border:1.5px solid var(--ink);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:10px;z-index:3">${n}</div>`;
+  }
+
+  const over = `
+    <div style="padding:16px 18px;background:var(--paper);min-height:620px;position:relative;overflow:hidden">
+      <!-- toolbar -->
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+        <div style="display:flex;gap:6px">
+          ${["Pan","Zoom","Pin","Comment","Filter"].map(x=>`<button class="box fill" style="padding:6px 10px;font-size:11px;border-radius:3px">${x}</button>`).join("")}
+        </div>
+        <div style="display:flex;gap:6px;align-items:center">
+          <span class="label">LEGEND</span>
+          <span class="sev high">HIGH</span><span class="sev med">MED</span><span class="sev low">LOW</span>
+        </div>
+      </div>
+
+      <!-- canvas grid -->
+      <div style="position:relative;background:
+          radial-gradient(circle, rgba(0,0,0,.08) 1px, transparent 1.5px) 0 0/22px 22px,
+          #fff;
+          border:1px solid var(--line);min-height:540px;padding:22px;overflow:hidden">
+
+        <!-- screens row 1 -->
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px;position:relative">
+          ${[1,2,3,4].map(i=>`
+            <div style="position:relative">
+              <div class="ph" style="height:170px">screen 0${i}</div>
+              <div class="label" style="margin-top:6px">SCREEN 0${i}</div>
+              ${i===2?pin(3,70,30,'med'):''}
+              ${i===4?pin(1,40,55,'high'):''}
+            </div>`).join("")}
+        </div>
+
+        <!-- screens row 2 -->
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:26px;position:relative">
+          ${[5,6,7,8].map(i=>`
+            <div style="position:relative">
+              <div class="ph" style="height:170px">screen 0${i}</div>
+              <div class="label" style="margin-top:6px">SCREEN 0${i}</div>
+              ${i===7?pin(1,50,40,'high'):''}
+              ${i===7?pin(2,28,70,'med'):''}
+              ${i===8?pin(4,60,45,'low'):''}
+            </div>`).join("")}
+        </div>
+
+        <!-- sticky notes -->
+        <div style="position:absolute;left:46%;top:26%">
+          <div class="sticky" style="width:170px;transform:rotate(-1.5deg)">
+            <span class="kicker">F-11 · MED · YOU</span>
+            Data-use disclosure hidden in footer. Move it to point-of-input?
+          </div>
+        </div>
+
+        <div style="position:absolute;left:36%;top:72%">
+          <div class="sticky" style="width:200px;transform:rotate(1deg);background:var(--scope-out-soft)">
+            <span class="kicker">F-03 · HIGH · YOU</span>
+            “Why was this suggested?” never answered on screen 07.
+          </div>
+        </div>
+
+        <!-- floating scoreboard -->
+        <div style="position:absolute;right:20px;top:20px;width:200px;background:#fff;border:1.5px solid var(--ink);padding:12px">
+          <div class="label">BOARD SUMMARY</div>
+          <div style="font-family:var(--hand);font-size:38px;line-height:1;margin-top:2px">${SAMPLE.overall}<span style="font-size:14px;color:var(--mute)">/100</span></div>
+          <div class="bar-track" style="margin-top:6px"><div class="bar-fill warn" style="width:${SAMPLE.overall}%"></div></div>
+          <div style="display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;margin-top:10px;color:var(--mute)">
+            <span>40 pins</span><span>8H · 18M · 14L</span>
+          </div>
+          <div style="margin-top:10px;padding-top:10px;border-top:1px dashed var(--line)">
+            <div class="label">FILTER BY PILLAR</div>
+            <div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:6px">
+              ${SAMPLE.pillars.slice(0,6).map(p=>`<span class="chip">${p.name.split(' ')[0]}</span>`).join("")}
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>`;
+
+  const deep = `
+    <div style="display:grid;grid-template-columns:1fr 360px;min-height:620px">
+      <div style="padding:18px;background:
+          radial-gradient(circle, rgba(0,0,0,.08) 1px, transparent 1.5px) 0 0/22px 22px,
+          #fff;position:relative">
+        <div class="label" style="margin-bottom:10px">SCREEN 07 · CLOSE-UP</div>
+        <div style="position:relative;max-width:520px;margin:20px auto">
+          <div class="ph" style="height:420px">screen 07 · AI suggestion (zoomed)</div>
+          ${pin(1,50,30,'high')}
+          <!-- callout line -->
+          <svg style="position:absolute;left:55%;top:30%;width:180px;height:80px;pointer-events:none" viewBox="0 0 180 80">
+            <path d="M0 10 Q 80 0, 170 40" stroke="#1a1a1a" fill="none" stroke-width="1.2"/>
+            <path d="M165 32 L 170 40 L 160 42" stroke="#1a1a1a" fill="none" stroke-width="1.2"/>
+          </svg>
+          <div class="sticky" style="position:absolute;left:75%;top:44%;width:160px">
+            <span class="kicker">PIN 1 · F-03</span>
+            No rationale shown.
+          </div>
+        </div>
+      </div>
+      <aside style="border-left:1px solid var(--line);background:var(--fill);padding:18px">
+        <div class="label">PIN DETAIL</div>
+        <h3 style="font-family:var(--hand);font-size:26px;line-height:1.15;margin:4px 0 8px 0">AI suggestion offered without reasoning</h3>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px">
+          <span class="sev high">HIGH</span>
+          <span class="chip">Explainability</span>
+          ${scopeChip("you")}
+        </div>
+        <div class="label">EVIDENCE</div>
+        <div class="lines" style="margin:6px 0 14px 0"><i></i><i></i><i></i></div>
+        <div class="label">SOCRATIC PROMPT</div>
+        <p class="hand" style="font-size:19px;line-height:1.3;margin:4px 0 14px 0">What signal would help a user decide?</p>
+        <div class="label">YOU CAN</div>
+        <ul style="font-size:12px;padding-left:18px;margin:6px 0 14px 0;line-height:1.6">
+          <li>Add rationale line</li>
+          <li>Draft ‘Why this?’ sheet</li>
+        </ul>
+        <div class="label">COLLABORATE WITH</div>
+        <ul style="font-size:12px;padding-left:18px;margin:6px 0 14px 0;line-height:1.6">
+          <li>ML Eng (surfaceable inputs)</li>
+          <li>Content (wording)</li>
+        </ul>
+        <div style="display:flex;gap:6px;margin-top:10px">
+          <button class="box" style="padding:6px 10px;font-size:11px;border-radius:3px;background:#fff">‹ Prev pin</button>
+          <button class="box fill-2" style="padding:6px 10px;font-size:11px;border-radius:3px">Next pin ›</button>
+        </div>
+      </aside>
+    </div>`;
+
+  const scope = `
+    <div style="padding:18px;background:
+        radial-gradient(circle, rgba(0,0,0,.08) 1px, transparent 1.5px) 0 0/22px 22px,
+        #fff;min-height:620px;position:relative">
+      <div class="label" style="margin-bottom:12px">SCOPE OF INFLUENCE · BOARD VIEW</div>
+
+      <!-- 3 lanes -->
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px">
+        ${[
+          {k:"you",   title:"Your scope",  color:"var(--scope-you-soft)"},
+          {k:"collab",title:"Collaborative",color:"var(--scope-collab-soft)"},
+          {k:"out",   title:"Out of scope",color:"var(--scope-out-soft)"},
+        ].map(lane=>`
+          <div style="border:1.5px solid var(--ink);background:${lane.color};min-height:480px;padding:12px;position:relative">
+            <div style="display:flex;justify-content:space-between;align-items:baseline">
+              <div style="font-family:var(--hand);font-size:22px">${lane.title}</div>
+              <span class="label">${SAMPLE.findings.filter(f=>f.scope===lane.k).length} in sample</span>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:10px;margin-top:14px">
+              ${SAMPLE.findings.filter(f=>f.scope===lane.k).map((f,i)=>`
+                <div class="sticky" style="background:#fff;transform:rotate(${i%2?'-':''}${0.5+i*0.3}deg);font-family:var(--sans);font-size:12px">
+                  <span class="kicker">${f.id} · ${f.sev.toUpperCase()}</span>
+                  <div style="font-weight:500;margin-bottom:4px">${f.title}</div>
+                  <div style="font-family:var(--mono);font-size:10px;color:var(--mute)">${f.pillar}</div>
+                </div>`).join("")}
+            </div>
+          </div>`).join("")}
+      </div>
+
+      <!-- legend + who -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px">
+        <div class="box" style="padding:12px;background:#fff">
+          <div class="label">STAKEHOLDERS INFERRED FROM ARTIFACT</div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px">
+            ${["PM","ML Eng","Content","Legal","Support","Research","Data Sci"].map(x=>`<span class="chip">${x}</span>`).join("")}
+          </div>
+        </div>
+        <div class="box" style="padding:12px;background:#fff">
+          <div class="label">DRAG A STICKY BETWEEN LANES TO RESCOPE</div>
+          <p class="hand" style="font-size:17px;line-height:1.3;margin:4px 0 0 0">(the tool will ask why — and log it)</p>
+        </div>
+      </div>
+    </div>`;
+
+  return `
+    <div class="direction-intro">
+      <div>
+        <h2>03 · Canvas Annotate</h2>
+        <div class="tagline">board · pins · stickies · FigJam-ish</div>
+      </div>
+      <div class="desc">
+        Feels like working on a real design board. All screens laid out, issues pinned in place, stickies next to them. Scope is three lanes you can drag between.
+      </div>
+      <div class="chips"><span class="chip">spatial</span><span class="chip">playful</span><span class="chip">team-ready</span></div>
+    </div>
+    ${screenLabel('A','Analysis results overview','screens pinned to a board')}
+    ${frameShell('Overview', over)}
+    ${screenLabel('B','Deep-dive on a single finding','zoom-in with pin detail')}
+    ${frameShell('Deep-dive', deep)}
+    ${screenLabel('C','Scope of influence','3 lanes — drag to rescope')}
+    ${frameShell('Scope', scope)}
+  `;
+}
+
+/* =====================================================================
+   DIRECTION 4 — SPLIT INSPECTOR
+   IDE-like: nav on left, screens/details in middle, inspector on right.
+===================================================================== */
+function buildD4(){
+  const leftNav = `
+    <aside style="width:220px;border-right:1px solid var(--line);background:var(--fill);padding:14px 10px;min-height:600px;font-size:12px">
+      <div class="label">PROJECT</div>
+      <div style="font-family:var(--hand);font-size:20px;margin-top:2px;line-height:1.1">Checkout v3</div>
+      <div class="label" style="margin-top:14px">PILLARS</div>
+      <div style="display:flex;flex-direction:column;gap:2px;margin-top:6px">
+        ${SAMPLE.pillars.map((p,i)=>`
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:4px 6px;border-radius:2px;${i===3?'background:#fff;border:1px solid var(--ink)':''}">
+            <span style="font-size:11px">${p.name}</span>
+            <span class="label">${p.score}</span>
+          </div>`).join("")}
+      </div>
+      <div class="label" style="margin-top:14px">FILTERS</div>
+      <div style="display:flex;flex-direction:column;gap:4px;margin-top:6px;font-family:var(--mono);font-size:10px">
+        <label><input type="checkbox" checked/> High severity</label>
+        <label><input type="checkbox" checked/> In your scope</label>
+        <label><input type="checkbox"/> Collaborative</label>
+        <label><input type="checkbox"/> Out of scope</label>
+      </div>
+    </aside>`;
+
+  const over = `
+    <div style="display:grid;grid-template-columns:auto 1fr 280px;min-height:620px">
+      ${leftNav}
+      <div style="padding:16px 18px">
+        <div style="display:flex;justify-content:space-between;align-items:end;margin-bottom:14px">
+          <div>
+            <div class="label">OVERVIEW</div>
+            <div style="font-family:var(--hand);font-size:30px;line-height:1">All findings · 40</div>
+          </div>
+          <div style="display:flex;gap:6px">
+            <button class="box" style="padding:6px 10px;font-size:11px">Group: Severity ▾</button>
+            <button class="box" style="padding:6px 10px;font-size:11px">Sort: Impact ▾</button>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:60px 1fr 90px 120px 60px;gap:8px;align-items:center;padding:8px 6px;border-bottom:1px solid var(--ink);font-family:var(--mono);font-size:10px;color:var(--mute);text-transform:uppercase;letter-spacing:.08em">
+          <span>ID</span><span>FINDING</span><span>SEV</span><span>SCOPE</span><span>SCR</span>
+        </div>
+        ${SAMPLE.findings.concat(SAMPLE.findings.slice(0,3)).map((f,i)=>`
+          <div style="display:grid;grid-template-columns:60px 1fr 90px 120px 60px;gap:8px;align-items:center;padding:10px 6px;border-bottom:1px dashed var(--line-2);${i===0?'background:var(--fill)':''}">
+            <span class="label">${f.id}</span>
+            <div>
+              <div style="font-size:12.5px;font-weight:${i===0?600:500}">${f.title}</div>
+              <div class="label" style="margin-top:2px">${f.pillar}</div>
+            </div>
+            <span class="sev ${f.sev}">${f.sev.toUpperCase()}</span>
+            ${scopeChip(f.scope)}
+            <span class="label">${f.screen.split('—')[0].trim().split(' ')[1]}</span>
+          </div>`).join("")}
+      </div>
+      <aside style="border-left:1px solid var(--line);padding:16px;background:var(--fill)">
+        <div class="label">RUN SUMMARY</div>
+        <div style="font-family:var(--hand);font-size:40px;line-height:1;margin:2px 0 8px 0">${SAMPLE.overall}<span style="font-size:14px;color:var(--mute)">/100</span></div>
+        <div class="bar-track"><div class="bar-fill warn" style="width:${SAMPLE.overall}%"></div></div>
+
+        <div class="label" style="margin-top:16px">SCOPE MIX</div>
+        <div style="display:flex;height:10px;margin-top:6px;border:1px solid var(--ink)">
+          <div style="width:55%;background:var(--scope-you)"></div>
+          <div style="width:33%;background:var(--scope-collab)"></div>
+          <div style="width:12%;background:var(--scope-out)"></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-family:var(--mono);font-size:9px;margin-top:4px;color:var(--mute)">
+          <span>you 55</span><span>collab 33</span><span>out 12</span>
+        </div>
+
+        <div class="label" style="margin-top:18px">SOCRATIC PROMPT</div>
+        <p class="hand" style="font-size:18px;line-height:1.3;margin:6px 0 14px 0">
+          Which pillar, if fixed, would most shift a first-time user’s trust?
+        </p>
+
+        <div class="label">SHORTCUTS</div>
+        <ul style="font-family:var(--mono);font-size:10px;line-height:1.7;padding-left:16px;margin:6px 0 0 0;color:var(--ink-2)">
+          <li>⌘F — search findings</li>
+          <li>⌘E — export</li>
+          <li>⌘K — command bar</li>
+        </ul>
+      </aside>
+    </div>`;
+
+  const deep = `
+    <div style="display:grid;grid-template-columns:auto 1.3fr 320px;min-height:620px">
+      ${leftNav}
+      <div style="padding:18px 20px">
+        <div class="label">F-03 · EXPLAINABILITY</div>
+        <h2 style="font-family:var(--hand);font-size:32px;line-height:1.1;margin:2px 0 10px 0">AI suggestion offered without reasoning</h2>
+        <div style="display:flex;gap:6px;flex-wrap:wrap">
+          <span class="sev high">HIGH</span>
+          <span class="chip">Screen 07</span>
+          ${scopeChip("you")}
+          <span class="chip">Heuristic: Transparency of reasoning</span>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px">
+          <div class="ph" style="height:260px">screen 07 annotated</div>
+          <div>
+            <div class="label">WHAT WE SEE</div>
+            <p style="font-size:12.5px;line-height:1.55;margin:6px 0 12px 0">
+              Suggestion card presented with no rationale, confidence, or inputs. User cannot calibrate trust.
+            </p>
+            <div class="label">HEURISTIC</div>
+            <p style="font-family:var(--mono);font-size:11px;color:var(--ink-2);line-height:1.55;margin:4px 0 12px 0">
+              XAI-02 — If the system acts on user behalf, surface why, what, and how confident.
+            </p>
+            <div class="label">SOCRATIC</div>
+            <p class="hand" style="font-size:19px;line-height:1.3;margin:4px 0 0 0">
+              What signal would help a user decide whether to accept, adjust, or reject this?
+            </p>
+          </div>
+        </div>
+
+        <div style="margin-top:18px">
+          <div class="label">STEPS TO ADDRESS</div>
+          <ol style="font-size:12.5px;line-height:1.7;padding-left:18px;margin:6px 0 0 0">
+            <li>Draft a one-line rationale variant (you).</li>
+            <li>Confirm with ML Eng which inputs are surfaceable (collab).</li>
+            <li>Confirm wording with Content (collab).</li>
+            <li>Spec ‘Why this?’ sheet; add to handoff doc (you).</li>
+          </ol>
+        </div>
+      </div>
+
+      <aside style="border-left:1px solid var(--line);background:var(--fill);padding:16px">
+        <div class="label">INSPECTOR</div>
+        <h4 style="font-family:var(--hand);font-size:20px;margin:4px 0 10px 0">Scope breakdown</h4>
+
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="background:var(--scope-you-soft);border:1px solid var(--ink);padding:10px">
+            <div class="label">YOURS · 3 STEPS</div>
+            <ul style="font-size:11.5px;padding-left:16px;margin:6px 0 0 0;line-height:1.5">
+              <li>Rationale copy</li>
+              <li>‘Why this?’ sheet spec</li>
+              <li>Handoff update</li>
+            </ul>
+          </div>
+          <div style="background:var(--scope-collab-soft);border:1px solid var(--ink);padding:10px">
+            <div class="label">WITH ML ENG + CONTENT · 2 STEPS</div>
+            <ul style="font-size:11.5px;padding-left:16px;margin:6px 0 0 0;line-height:1.5">
+              <li>Surfaceable inputs?</li>
+              <li>Final wording review</li>
+            </ul>
+          </div>
+          <div style="background:var(--scope-out-soft);border:1px solid var(--ink);padding:10px">
+            <div class="label">NOT YOURS</div>
+            <ul style="font-size:11.5px;padding-left:16px;margin:6px 0 0 0;line-height:1.5">
+              <li>Model confidence output</li>
+              <li>Policy on disclosure depth</li>
+            </ul>
+          </div>
+        </div>
+
+        <div style="margin-top:14px;padding-top:12px;border-top:1px dashed var(--line)">
+          <div class="label">ACTIONS</div>
+          <div style="display:flex;flex-direction:column;gap:6px;margin-top:8px">
+            <button class="box" style="padding:6px 10px;font-size:11px;background:#fff">Mark addressed</button>
+            <button class="box" style="padding:6px 10px;font-size:11px;background:#fff">Assign to PM</button>
+            <button class="box" style="padding:6px 10px;font-size:11px;background:#fff">Export note</button>
+          </div>
+        </div>
+      </aside>
+    </div>`;
+
+  const scope = `
+    <div style="display:grid;grid-template-columns:auto 1fr;min-height:620px">
+      ${leftNav}
+      <div style="padding:18px 22px">
+        <div class="label">SCOPE OF INFLUENCE</div>
+        <h2 style="font-family:var(--hand);font-size:30px;margin:2px 0 14px 0">Split by who owns what</h2>
+
+        <div style="display:grid;grid-template-columns:30px 1fr 1fr 1fr;gap:14px;border-bottom:1px solid var(--ink);padding-bottom:8px;font-family:var(--mono);font-size:10px;color:var(--mute);text-transform:uppercase">
+          <span></span>
+          <span>YOUR SCOPE · you own</span>
+          <span>COLLABORATIVE · you lead</span>
+          <span>OUT OF SCOPE · escalate</span>
+        </div>
+
+        ${SAMPLE.pillars.slice(0,6).map((p,i)=>{
+          const youN = [3,1,4,2,3,2][i], collN = [1,3,1,3,0,1][i], outN = [0,2,0,2,0,1][i];
+          return `
+          <div style="display:grid;grid-template-columns:30px 1fr 1fr 1fr;gap:14px;padding:12px 0;border-bottom:1px dashed var(--line-2);align-items:center">
+            <div class="label" style="font-size:10px">${String.fromCharCode(65+i)}</div>
+            <div style="font-size:12.5px;font-weight:500">${p.name}</div>
+            <div style="display:flex;align-items:center;gap:8px">
+              <div class="bar-track" style="flex:1"><div class="bar-fill good" style="width:${youN*18}%"></div></div>
+              <span class="label">${youN}</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px">
+              <div class="bar-track" style="flex:1"><div class="bar-fill" style="background:var(--scope-collab);width:${collN*18}%"></div></div>
+              <span class="label">${collN}</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px">
+              <div class="bar-track" style="flex:1"><div class="bar-fill bad" style="width:${outN*18}%"></div></div>
+              <span class="label">${outN}</span>
+            </div>
+          </div>`;
+        }).join("")}
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px">
+          <div class="box" style="padding:14px;background:var(--scope-you-soft)">
+            <div class="label">YOUR NEXT 5 MOVES</div>
+            <ol style="font-size:12.5px;padding-left:18px;margin:8px 0 0 0;line-height:1.7">
+              <li>Rationale line on suggestion card (F-03)</li>
+              <li>Inline data disclosure (F-11)</li>
+              <li>Specific timeout error copy (F-18)</li>
+              <li>Consent granularity hooks (F-22)</li>
+              <li>‘Why this?’ sheet spec</li>
+            </ol>
+          </div>
+          <div class="box" style="padding:14px;background:var(--scope-collab-soft)">
+            <div class="label">ASKS FOR THE TEAM</div>
+            <ol style="font-family:var(--hand);font-size:18px;padding-left:20px;margin:8px 0 0 0;line-height:1.6">
+              <li style="margin-bottom:6px">ML Eng: which inputs are safe to surface?</li>
+              <li style="margin-bottom:6px">Legal: can consent be unbundled?</li>
+              <li style="margin-bottom:6px">Support: where does appeal start?</li>
+              <li>Content: tone for error states?</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>`;
+
+  return `
+    <div class="direction-intro">
+      <div>
+        <h2>04 · Split Inspector</h2>
+        <div class="tagline">IDE-like · nav + table + inspector · power users</div>
+      </div>
+      <div class="desc">
+        Dense, efficient, keyboard-driven. Left nav, middle list, right inspector. Best for designers who want to grind through findings in one sitting.
+      </div>
+      <div class="chips"><span class="chip">dense</span><span class="chip">keyboard</span><span class="chip">audit-mode</span></div>
+    </div>
+    ${screenLabel('A','Analysis results overview','sortable finding table + inspector')}
+    ${frameShell('Overview', over)}
+    ${screenLabel('B','Deep-dive on a single finding','heuristic + scope inspector')}
+    ${frameShell('Deep-dive', deep)}
+    ${screenLabel('C','Scope of influence','per-pillar breakdown across 3 lanes')}
+    ${frameShell('Scope', scope)}
+  `;
+}
+
+/* =====================================================================
+   WIRE UP TABS
+===================================================================== */
+const BUILDERS = { d1:buildD1, d2:buildD2, d3:buildD3, d4:buildD4 };
+
+function showDirection(id){
+  stage.innerHTML = BUILDERS[id]();
+  document.querySelectorAll('.tab').forEach(t=>{
+    t.classList.toggle('active', t.dataset.tab===id);
+  });
+  localStorage.setItem('etl-dir', id);
+  applyScreenFilter();
+}
+
+document.getElementById('tabs').addEventListener('click', (e)=>{
+  const t = e.target.closest('.tab');
+  if(!t) return;
+  showDirection(t.dataset.tab);
+});
+
+const initial = localStorage.getItem('etl-dir') || 'd1';
+showDirection(initial);
+
+/* screen filter hook */
+function applyScreenFilter(){
+  const v = document.getElementById('tw-screens')?.value || 'all';
+  const frames = stage.querySelectorAll('.frame');
+  const labels = stage.querySelectorAll('.screen-label');
+  frames.forEach((f,i)=>{
+    const show = v==='all' || (v==='overview' && i===0) || (v==='deepdive' && i===1) || (v==='scope' && i===2);
+    f.style.display = show ? '' : 'none';
+    if(labels[i]) labels[i].style.display = show ? '' : 'none';
+  });
+}
+window.__applyScreenFilter = applyScreenFilter;
+
+
+</script>
+<script>
+/* ============ TWEAKS ============ */
+(function(){
+  const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+    "screens": "all",
+    "paper": "warm",
+    "accent": "amber",
+    "wobble": 1
+  }/*EDITMODE-END*/;
+
+  const panel = document.getElementById('tweaks');
+  const body = document.body;
+
+  window.addEventListener('message', (e)=>{
+    const d = e.data || {};
+    if(d.type === '__activate_edit_mode') panel.classList.add('on');
+    if(d.type === '__deactivate_edit_mode') panel.classList.remove('on');
+  });
+  window.parent.postMessage({type:'__edit_mode_available'}, '*');
+
+  function applyAll(v){
+    // paper
+    const paper = v.paper;
+    if(paper==='cool'){ document.documentElement.style.setProperty('--paper','#f1f2f3'); document.documentElement.style.setProperty('--fill','#e8e9eb'); }
+    else if(paper==='plain'){ document.documentElement.style.setProperty('--paper','#ffffff'); document.documentElement.style.setProperty('--fill','#f2f2f2'); }
+    else{ document.documentElement.style.setProperty('--paper','#faf8f3'); document.documentElement.style.setProperty('--fill','#f3f2ef'); }
+
+    // accent
+    const a = v.accent;
+    if(a==='teal'){ document.documentElement.style.setProperty('--accent','#2f6a6a'); document.documentElement.style.setProperty('--accent-soft','#d4e3e1'); }
+    else if(a==='plum'){ document.documentElement.style.setProperty('--accent','#6a2f5a'); document.documentElement.style.setProperty('--accent-soft','#e8d4e1'); }
+    else if(a==='none'){ document.documentElement.style.setProperty('--accent','#3a3a3a'); document.documentElement.style.setProperty('--accent-soft','#e6e6e6'); }
+    else{ document.documentElement.style.setProperty('--accent','#b8761a'); document.documentElement.style.setProperty('--accent-soft','#f3e2c2'); }
+
+    // wobble
+    const w = parseInt(v.wobble,10) || 0;
+    document.querySelectorAll('.tab').forEach((t,i)=>{
+      const deg = (w===0?0 : ((i%2?-1:1) * 0.15 * w));
+      t.style.transform = `rotate(${deg}deg)`;
+    });
+    document.querySelectorAll('.sticky').forEach((s,i)=>{
+      const deg = (w===0?0 : ((i%2?-1:1) * 0.9 * w));
+      s.style.transform = `rotate(${deg}deg)`;
+    });
+
+    // screens
+    const sel = document.getElementById('tw-screens');
+    if(sel) sel.value = v.screens;
+    if(window.__applyScreenFilter) window.__applyScreenFilter();
+  }
+
+  const state = {...TWEAK_DEFAULTS};
+  const stored = localStorage.getItem('etl-tweaks');
+  if(stored){ try{ Object.assign(state, JSON.parse(stored)); }catch(e){} }
+
+  // init control values
+  document.getElementById('tw-screens').value = state.screens;
+  document.getElementById('tw-paper').value = state.paper;
+  document.getElementById('tw-accent').value = state.accent;
+  document.getElementById('tw-skew').value = state.wobble;
+  applyAll(state);
+
+  function onChange(key){
+    return (e)=>{
+      state[key] = e.target.value;
+      localStorage.setItem('etl-tweaks', JSON.stringify(state));
+      window.parent.postMessage({type:'__edit_mode_set_keys', edits:{[key]:e.target.value}}, '*');
+      applyAll(state);
+    };
+  }
+  document.getElementById('tw-screens').addEventListener('change', onChange('screens'));
+  document.getElementById('tw-paper').addEventListener('change', onChange('paper'));
+  document.getElementById('tw-accent').addEventListener('change', onChange('accent'));
+  document.getElementById('tw-skew').addEventListener('input', onChange('wobble'));
+
+  // reapply on tab switch (new screens get inserted)
+  const origShow = window.showDirection;
+  const obs = new MutationObserver(()=>applyAll(state));
+  obs.observe(document.getElementById('stage'), {childList:true});
+})();
+
+</script>
+</body>
+</html>
